@@ -34,6 +34,7 @@ public:
 private:
 	UPROPERTY(EditAnywhere)
 	float ReachLength = 200.f;
+	bool bIsDebuggingEnabled = false;
 
 	FVector OUT PlayerViewPointLocation;
 	FRotator OUT PlayerViewPointRotation;

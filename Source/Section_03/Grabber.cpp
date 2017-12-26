@@ -27,9 +27,6 @@ void UGrabber::BeginPlay()
 
 	AActorPlayer = GetWorld()->GetFirstPlayerController();
 	InitComponents();
-
-
-
 }
 
 // Called every frame
@@ -41,15 +38,17 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 		AActorPlayer->GetActorEyesViewPoint(PlayerViewPointLocation, PlayerViewPointRotation);
 	}
 
-	///DEBUG
 	LineEndVector = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * ReachLength;
-	DebugLine(LineEndVector);
-
 	if (PhysicsHandle->GrabbedComponent) {
+		
 		PhysicsHandle->SetTargetLocation(LineEndVector);
 	}
 
-
+	//DEBUG
+	if (bIsDebuggingEnabled) {
+		LineEndVector = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * ReachLength;
+		DebugLine(LineEndVector);
+	}
 }
 
 void UGrabber::InitComponents()
@@ -91,7 +90,7 @@ const FHitResult UGrabber::GetFirstPhysicsBody()
 		PlayerViewPointLocation,
 		LineEndVector,
 		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
-		FCollisionQueryParams(FName(TEXT("")), false, GetOwner())
+		FCollisionQueryParams(NAME_None, false, GetOwner())
 	);
 
 	return LineTraceHit;
@@ -111,4 +110,3 @@ void UGrabber::DebugLine(FVector &LineEndVector)
 		2.f
 	);
 }
-
