@@ -42,7 +42,7 @@ private:
 
 	FVector LineEndVector;
 
-	AActor* AActorPlayer;
+	AActor* AActorPlayer = nullptr;
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 	UInputComponent* InputComponent = nullptr;
 

@@ -32,12 +32,10 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 
 	if (PressurePlate != NULL) {
 		if (GetTotalMassOnPressurePlate() > ThresholdWeight) {
-			DoorRotation = FRotator(0.0f, OpenDoorAngle, 0.0f);
-			GetOwner()->SetActorRotation(DoorRotation);
+			OnOpenRequest.Broadcast();
 		}
 		else {
-			DoorRotation = FRotator(0.0f, CloseDoorAngle, 0.0f);
-			GetOwner()->SetActorRotation(DoorRotation);
+			OnCloseRequest.Broadcast();
 		}
 	}
 }

@@ -39,8 +39,11 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	}
 
 	LineEndVector = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * ReachLength;
+	if (!PhysicsHandle) { 
+		UE_LOG(LogTemp, Error, TEXT("PhysicsHandle not found"));
+		return;
+	}
 	if (PhysicsHandle->GrabbedComponent) {
-		
 		PhysicsHandle->SetTargetLocation(LineEndVector);
 	}
 
@@ -78,6 +81,10 @@ void UGrabber::GrabAction() {
 }
 
 void UGrabber::ReleaseAction(){
+	if (!PhysicsHandle) { 
+		UE_LOG(LogTemp, Error, TEXT("PhysicsHandle not found"));
+		return;
+	}
 	if (PhysicsHandle->GrabbedComponent) {
 		PhysicsHandle->ReleaseComponent();
 	}
